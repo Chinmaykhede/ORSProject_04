@@ -51,7 +51,8 @@ public class StudentModel extends BaseModel<StudentBean> {
 		try {
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
-			PreparedStatement pstmt = conn.prepareStatement("update " + getTable()+ " set college_id=?, college_name=?, first_name=?, last_name=?, date_of_birth=?, mobile_no=?, email=?, created_by=?, modified_by=?, created_datetime=?, modified_datetime=? where id=?");
+			PreparedStatement pstmt = conn.prepareStatement("update " + getTable()
+					+ " set college_id=?, college_name=?, first_name=?, last_name=?, date_of_birth=?, mobile_no=?, email=?, created_by=?, modified_by=?, created_datetime=?, modified_datetime=? where id=?");
 			pstmt.setLong(1, bean.getCollegeId());
 			pstmt.setString(2, bean.getCollegeName());
 			pstmt.setString(3, bean.getFirstName());
@@ -63,7 +64,7 @@ public class StudentModel extends BaseModel<StudentBean> {
 			pstmt.setString(9, bean.getModifiedBy());
 			pstmt.setTimestamp(10, bean.getCreatedDatetime());
 			pstmt.setTimestamp(11, bean.getModifiedDatetime());
-			pstmt.setLong(12,bean.getId());
+			pstmt.setLong(12, bean.getId());
 
 			pstmt.executeUpdate();
 			conn.commit();
@@ -79,19 +80,44 @@ public class StudentModel extends BaseModel<StudentBean> {
 
 	@Override
 	public String getWhereClause(StudentBean bean) {
-		
-		return null;
+		StringBuffer sql = new StringBuffer("");
+
+		if (bean != null) {
+			if (bean.getId() > 0) {
+				sql.append(" and id = " + bean.getId());
+			}
+			if (bean.getCollegeId() > 0) {
+				sql.append(" and college_id =" + bean.getCollegeId());
+				System.out.println(bean.getCollegeId());
+			}
+			if (bean.getCollegeName() != null && bean.getCollegeName().length() > 0) {
+				sql.append(" and college_name like '" + bean.getCollegeName() + "%'");
+			}
+			if (bean.getFirstName() != null && bean.getFirstName().length() > 0) {
+				sql.append(" and first_name like '" + bean.getFirstName() + "%'");
+			}
+			if (bean.getLastName() != null && bean.getLastName().length() > 0) {
+				sql.append(" and last_name like '" + bean.getLastName() + "%'");
+			}
+			if (bean.getMobileNo() != null && bean.getMobileNo().length() <= 10) {
+				sql.append(" and mobile_no =" + bean.getMobileNo());
+			}
+			if (bean.getEmail() != null && bean.getEmail().length() > 0) {
+				sql.append(" and email '" + bean.getEmail() + "%'");
+			}
+		}
+		return sql.toString();
 	}
 
 	@Override
 	public String getTable() {
-		
+
 		return "st_student";
 	}
 
 	@Override
 	public StudentBean getBean() {
-		
+
 		return new StudentBean();
 	}
 

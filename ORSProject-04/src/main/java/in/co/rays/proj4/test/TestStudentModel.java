@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 import in.co.rays.proj4.bean.StudentBean;
 import in.co.rays.proj4.model.StudentModel;
@@ -16,8 +18,8 @@ public class TestStudentModel {
 		// testAdd();
 		// testUpdate();
 		// testDelete();
-		//testFindByPk();
-		 testSearch();
+		// testFindByPk();
+		testSearch();
 	}
 
 	private static void testAdd() throws ParseException {
@@ -80,6 +82,26 @@ public class TestStudentModel {
 	}
 
 	private static void testSearch() {
+		StudentBean bean = new StudentBean();
+		List<StudentBean> list = model.search(bean, 1, 5);
+		Iterator<StudentBean> it = list.iterator();
+		while (it.hasNext()) {
+			bean = it.next();
+			System.out.println(bean.getId());
+			System.out.println(bean.getCollegeId());
+			System.out.println(bean.getCollegeName());
+			System.out.println(bean.getFirstName());
+			System.out.println(bean.getLastName());
+			System.out.println(bean.getDateOfBirth());
+			System.out.println(bean.getMobileNo());
+			System.out.println(bean.getEmail());
+			System.out.println(bean.getCreatedBy());
+			System.out.println(bean.getModifiedBy());
+			System.out.println(bean.getCreatedDatetime());
+			System.out.println(bean.getModifiedDatetime());
+			System.out.println("-----------------------------");
+
+		}
 
 	}
 }

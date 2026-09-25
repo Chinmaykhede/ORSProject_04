@@ -103,6 +103,7 @@ public abstract class BaseModel<T extends BaseBean> {
 			while (rs.next()) {
 				bean = getBean();
 				bean.setResultSet(rs);
+				//System.out.println(bean.get);
 				list.add(bean);
 			}
 		} catch (Exception e) {

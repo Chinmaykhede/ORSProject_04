@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 
 public class StudentBean extends BaseBean {
-	private Long collegeId;
+	private long collegeId;
 	private String collegeName;
 	private String firstName;
 	private String lastName;
@@ -12,11 +12,11 @@ public class StudentBean extends BaseBean {
 	private String mobileNo;
 	private String email;
 
-	public Long getCollegeId() {
+	public long getCollegeId() {
 		return collegeId;
 	}
 
-	public void setCollegeId(Long collegeId) {
+	public void setCollegeId(long collegeId) {
 		this.collegeId = collegeId;
 	}
 
@@ -86,7 +86,7 @@ public class StudentBean extends BaseBean {
 			setEmail(rs.getString("email"));
 
 		} catch (Exception e) {
-           e.printStackTrace();
+			e.printStackTrace();
 		}
 		super.setResultSet(rs);
 	}
