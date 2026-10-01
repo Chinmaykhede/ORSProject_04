@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 import in.co.rays.proj4.bean.MarksheetBean;
+import in.co.rays.proj4.bean.StudentBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
@@ -14,6 +15,9 @@ public class MarksheetModel extends BaseModel<MarksheetBean> {
 	public long add(MarksheetBean bean) throws ApplicationException, DuplicateRecordException {
 		long pk = 0;
 		Connection conn = null;
+		StudentModel smodel = new StudentModel();
+		StudentBean sbean = smodel.findBypk(bean.getStudentId());
+
 		try {
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
@@ -46,6 +50,8 @@ public class MarksheetModel extends BaseModel<MarksheetBean> {
 	@Override
 	public void update(MarksheetBean bean) throws ApplicationException, DuplicateRecordException {
 		Connection conn = null;
+		StudentModel smodel = new StudentModel();
+		StudentBean sbean = smodel.findBypk(bean.getStudentId());
 		try {
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
@@ -102,6 +108,14 @@ public class MarksheetModel extends BaseModel<MarksheetBean> {
 			}
 		}
 		return sql.toString();
+	}
+
+	public MarksheetBean FindByRollNumber(String rollNo) {
+
+		MarksheetBean bean = findByUniqueColumn("rollNo", rollNo);
+
+		return bean;
+
 	}
 
 	@Override

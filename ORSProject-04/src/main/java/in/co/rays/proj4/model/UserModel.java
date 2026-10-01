@@ -91,8 +91,40 @@ public class UserModel extends BaseModel<UserBean> {
 
 	@Override
 	public String getWhereClause(UserBean bean) {
+		StringBuffer sql = new StringBuffer("");
 
-		return null;
+		if (bean != null) {
+			if (bean.getId() > 0) {
+				sql.append(" and id =" + bean.getId());
+			}
+			if (bean.getFirstName() != null && bean.getFirstName().length() > 0) {
+				sql.append(" and first_name like '" + bean.getFirstName() + "%'");
+			}
+			if (bean.getLastName() != null && bean.getFirstName().length() > 0) {
+				sql.append(" and last_name like '" + bean.getLastName() + "%'");
+			}
+			if (bean.getLogin() != null && bean.getLogin().length() > 0) {
+				sql.append(" and login like '" + bean.getLogin() + "%'");
+			}
+			if (bean.getPassword() != null && bean.getPassword().length() > 0) {
+				sql.append(" and password like '" + bean.getPassword() + "%'");
+			}
+			if (bean.getMobileNo() != null && bean.getMobileNo().length() <= 10) {
+				sql.append(" and mobile_no =" + bean.getMobileNo());
+			}
+			if (bean.getGender() != null && bean.getGender().length() > 0) {
+				sql.append(" and gender like '" + bean.getGender() + "'");
+			}
+		}
+		return sql.toString();
+	}
+
+	public UserBean FindByLogin(String login) {
+
+		UserBean bean = findByUniqueColumn("login", login);
+
+		return bean;
+
 	}
 
 	@Override

@@ -103,7 +103,7 @@ public abstract class BaseModel<T extends BaseBean> {
 			while (rs.next()) {
 				bean = getBean();
 				bean.setResultSet(rs);
-				//System.out.println(bean.get);
+				// System.out.println(bean.get);
 				list.add(bean);
 			}
 		} catch (Exception e) {
@@ -113,4 +113,35 @@ public abstract class BaseModel<T extends BaseBean> {
 		}
 		return list;
 	}
+
+	public T findByUniqueColumn(String column, String value) {
+		Connection conn = null;
+		T bean = null;
+
+		try {
+
+			conn = JDBCDataSource.getConnection();
+
+			PreparedStatement pstmt = conn
+					.prepareStatement("select * from " + getTable() + " where " + column + " = ?");
+
+			pstmt.setString(1, value);
+
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				bean = getBean();
+				bean.setResultSet(rs);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCDataSource.closeConnection(conn);
+		}
+
+		return bean;
+
+	}
+
 }

@@ -46,16 +46,16 @@ public class TestFacultyModel {
 	private static void testUpdate() throws ParseException {
 		FacultyBean bean = new FacultyBean();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		bean.setId(1);
-		bean.setCollegeId(1);
-		bean.setCollegeName("IPS");
-		bean.setFirstName("Harshit");
-		bean.setLastName("Gupta");
-		bean.setMobileNo("harshit@gmail.com");
-		bean.setEmail("8876543210");
-		bean.setAddress("Rajendra Nagar");
+		bean.setId(7);
+		bean.setCollegeId(6);
+		bean.setCollegeName("Sage University");
+		bean.setFirstName("Sidharth");
+		bean.setLastName("Jain");
+		bean.setEmail("sidharth@gmail.com");
+		bean.setMobileNo("8876543216");
+		bean.setAddress("Rau Bypass");
 		bean.setGender("Male");
-		bean.setDateOfBirth(new java.sql.Date(format.parse("1997-04-25").getTime()));
+		bean.setDateOfBirth(new java.sql.Date(format.parse("2005-02-28").getTime()));
 		bean.setCreatedBy("Chinmay");
 		bean.setModifiedBy("Chinmay");
 		bean.setCreatedDatetime(new Timestamp(new Date().getTime()));

@@ -88,6 +88,13 @@ public class CourseModel extends BaseModel<CourseBean> {
 		return sql.toString();
 	}
 
+	public CourseBean FindByName(String name) {
+
+		CourseBean bean = findByUniqueColumn("name", name);
+
+		return bean;
+	}
+
 	@Override
 	public String getTable() {
 

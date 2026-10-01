@@ -3,6 +3,7 @@ package in.co.rays.proj4.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
+import in.co.rays.proj4.bean.CollegeBean;
 import in.co.rays.proj4.bean.StudentBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
@@ -13,6 +14,8 @@ public class StudentModel extends BaseModel<StudentBean> {
 	@Override
 	public long add(StudentBean bean) throws ApplicationException, DuplicateRecordException {
 		Connection conn = null;
+		CollegeModel cmodel = new CollegeModel();
+		CollegeBean cbean = cmodel.findBypk(bean.getCollegeId());
 		long pk = 0;
 		try {
 			conn = JDBCDataSource.getConnection();
@@ -47,7 +50,8 @@ public class StudentModel extends BaseModel<StudentBean> {
 	@Override
 	public void update(StudentBean bean) throws ApplicationException, DuplicateRecordException {
 		Connection conn = null;
-
+		CollegeModel cmodel = new CollegeModel();
+		CollegeBean cbean = cmodel.findBypk(bean.getCollegeId());
 		try {
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
@@ -107,6 +111,14 @@ public class StudentModel extends BaseModel<StudentBean> {
 			}
 		}
 		return sql.toString();
+	}
+
+	public StudentBean FindByEmail(String email) {
+
+		StudentBean bean = findByUniqueColumn("email", email);
+
+		return bean;
+
 	}
 
 	@Override

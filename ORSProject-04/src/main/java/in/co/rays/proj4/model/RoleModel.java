@@ -89,6 +89,13 @@ public class RoleModel extends BaseModel<RoleBean> {
 		return sql.toString();
 	}
 
+	public RoleBean FindByName(String name) {
+
+		RoleBean bean = findByUniqueColumn("name", name);
+
+		return bean;
+	}
+
 	@Override
 	public String getTable() {
 

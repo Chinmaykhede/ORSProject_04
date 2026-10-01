@@ -3,6 +3,7 @@ package in.co.rays.proj4.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
+import in.co.rays.proj4.bean.CollegeBean;
 import in.co.rays.proj4.bean.FacultyBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
@@ -13,6 +14,8 @@ public class FacultyModel extends BaseModel<FacultyBean> {
 	@Override
 	public long add(FacultyBean bean) throws ApplicationException, DuplicateRecordException {
 		Connection conn = null;
+		CollegeModel cmodel = new CollegeModel();
+		CollegeBean cbean = cmodel.findBypk(bean.getCollegeId());
 		long pk = 0;
 		try {
 			conn = JDBCDataSource.getConnection();
@@ -24,8 +27,8 @@ public class FacultyModel extends BaseModel<FacultyBean> {
 			pstmt.setString(3, bean.getCollegeName());
 			pstmt.setString(4, bean.getFirstName());
 			pstmt.setString(5, bean.getLastName());
-			pstmt.setString(6, bean.getMobileNo());
-			pstmt.setString(7, bean.getEmail());
+			pstmt.setString(6, bean.getEmail());
+			pstmt.setString(7, bean.getMobileNo());
 			pstmt.setString(8, bean.getAddress());
 			pstmt.setString(9, bean.getGender());
 			pstmt.setDate(10, new java.sql.Date((bean.getDateOfBirth()).getTime()));
@@ -59,8 +62,8 @@ public class FacultyModel extends BaseModel<FacultyBean> {
 			pstmt.setString(2, bean.getCollegeName());
 			pstmt.setString(3, bean.getFirstName());
 			pstmt.setString(4, bean.getLastName());
-			pstmt.setString(5, bean.getMobileNo());
-			pstmt.setString(6, bean.getEmail());
+			pstmt.setString(5, bean.getEmail());
+			pstmt.setString(6, bean.getMobileNo());
 			pstmt.setString(7, bean.getAddress());
 			pstmt.setString(8, bean.getGender());
 			pstmt.setDate(9, new java.sql.Date((bean.getDateOfBirth()).getTime()));
@@ -115,6 +118,13 @@ public class FacultyModel extends BaseModel<FacultyBean> {
 		}
 
 		return sql.toString();
+	}
+
+	public FacultyBean FindByEmail(String email) {
+
+		FacultyBean bean = findByUniqueColumn("email", email);
+
+		return bean;
 	}
 
 	@Override

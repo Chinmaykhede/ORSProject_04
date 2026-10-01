@@ -20,7 +20,7 @@ public class CollegeModel extends BaseModel<CollegeBean> {
 			conn.setAutoCommit(false);
 			PreparedStatement pstmt = conn
 					.prepareStatement("insert into " + getTable() + " values(?,?,?,?,?,?,?,?,?,?)");
-			pstmt.setLong(1,nextPk());
+			pstmt.setLong(1, nextPk());
 			pstmt.setString(2, bean.getName());
 			pstmt.setString(3, bean.getAddress());
 			pstmt.setString(4, bean.getState());
@@ -78,28 +78,35 @@ public class CollegeModel extends BaseModel<CollegeBean> {
 	public String getWhereClause(CollegeBean bean) {
 
 		StringBuffer sql = new StringBuffer("");
-		
-		if(bean != null) {
-			if(bean.getId() !=0) {
-				sql.append(" and id ="+bean.getId());
+
+		if (bean != null) {
+			if (bean.getId() != 0) {
+				sql.append(" and id =" + bean.getId());
 			}
-			if(bean.getName() !=null && bean.getName().length()>0) {
-				sql.append(" and name like '"+bean.getName()+"%'");
+			if (bean.getName() != null && bean.getName().length() > 0) {
+				sql.append(" and name like '" + bean.getName() + "%'");
 			}
-			if(bean.getAddress() !=null && bean.getAddress().length()>0) {
-				sql.append(" and address like '"+bean.getAddress()+"%'");
+			if (bean.getAddress() != null && bean.getAddress().length() > 0) {
+				sql.append(" and address like '" + bean.getAddress() + "%'");
 			}
-			if(bean.getState() !=null && bean.getState().length()>0) {
-				sql.append(" and state like '"+bean.getState()+"%'");
+			if (bean.getState() != null && bean.getState().length() > 0) {
+				sql.append(" and state like '" + bean.getState() + "%'");
 			}
-			if(bean.getCity() !=null && bean.getCity().length()>0) {
-				sql.append(" and city like '"+bean.getCity()+"%'");
+			if (bean.getCity() != null && bean.getCity().length() > 0) {
+				sql.append(" and city like '" + bean.getCity() + "%'");
 			}
-			if(bean.getPhoneNo() !=null && bean.getPhoneNo().length()<=10) {
-				sql.append(" and phone_no like '"+bean.getPhoneNo()+"%'");
+			if (bean.getPhoneNo() != null && bean.getPhoneNo().length() <= 10) {
+				sql.append(" and phone_no like '" + bean.getPhoneNo() + "%'");
 			}
 		}
 		return sql.toString();
+	}
+
+	public CollegeBean FindByName(String name) {
+
+		CollegeBean bean = findByUniqueColumn("name", name);
+
+		return bean;
 	}
 
 	@Override
