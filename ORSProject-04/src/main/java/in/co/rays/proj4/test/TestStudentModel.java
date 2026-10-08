@@ -18,8 +18,8 @@ public class TestStudentModel {
 		// testAdd();
 		// testUpdate();
 		// testDelete();
-		// testFindByPk();
-		testSearch();
+		// testfindByPk();
+		//testSearch();
 	}
 
 	private static void testAdd() throws ParseException {
@@ -65,8 +65,8 @@ public class TestStudentModel {
 
 	}
 
-	private static void testFindByPk() {
-		StudentBean bean = model.findBypk(3);
+	private static void testfindByPk() {
+		StudentBean bean = model.findByPk(3);
 		System.out.println(bean.getId());
 		System.out.println(bean.getCollegeId());
 		System.out.println(bean.getCollegeName());

@@ -3,6 +3,7 @@ package in.co.rays.proj4.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
+import in.co.rays.proj4.bean.CollegeBean;
 import in.co.rays.proj4.bean.MarksheetBean;
 import in.co.rays.proj4.bean.StudentBean;
 import in.co.rays.proj4.exception.ApplicationException;
@@ -15,10 +16,17 @@ public class MarksheetModel extends BaseModel<MarksheetBean> {
 	public long add(MarksheetBean bean) throws ApplicationException, DuplicateRecordException {
 		long pk = 0;
 		Connection conn = null;
+
+		MarksheetBean existBean = findByRollNumber(bean.getRollNo());
+		if (existBean != null) {
+			throw new DuplicateRecordException("rollno already exist");
+
+		}
 		StudentModel smodel = new StudentModel();
-		StudentBean sbean = smodel.findBypk(bean.getStudentId());
+		StudentBean sbean = smodel.findByPk(bean.getStudentId());
 
 		try {
+			pk = nextPk();
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
 			PreparedStatement pstmt = conn
@@ -50,8 +58,15 @@ public class MarksheetModel extends BaseModel<MarksheetBean> {
 	@Override
 	public void update(MarksheetBean bean) throws ApplicationException, DuplicateRecordException {
 		Connection conn = null;
+		MarksheetBean existBean = findByRollNumber(bean.getRollNo());
+
+		if (existBean != null && existBean.getId() != bean.getId()) {
+			throw new DuplicateRecordException("rollno already exist");
+
+		}
+
 		StudentModel smodel = new StudentModel();
-		StudentBean sbean = smodel.findBypk(bean.getStudentId());
+		StudentBean sbean = smodel.findByPk(bean.getStudentId());
 		try {
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
@@ -110,14 +125,6 @@ public class MarksheetModel extends BaseModel<MarksheetBean> {
 		return sql.toString();
 	}
 
-	public MarksheetBean FindByRollNumber(String rollNo) {
-
-		MarksheetBean bean = findByUniqueColumn("rollNo", rollNo);
-
-		return bean;
-
-	}
-
 	@Override
 	public String getTable() {
 
@@ -130,4 +137,11 @@ public class MarksheetModel extends BaseModel<MarksheetBean> {
 		return new MarksheetBean();
 	}
 
+	public MarksheetBean findByRollNumber(String rollNo) {
+
+		MarksheetBean bean = findByUniqueColumn("rollNo", rollNo);
+
+		return bean;
+
+	}
 }

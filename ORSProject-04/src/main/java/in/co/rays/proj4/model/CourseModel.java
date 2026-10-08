@@ -3,6 +3,7 @@ package in.co.rays.proj4.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
+import in.co.rays.proj4.bean.CollegeBean;
 import in.co.rays.proj4.bean.CourseBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
@@ -14,7 +15,15 @@ public class CourseModel extends BaseModel<CourseBean> {
 	public long add(CourseBean bean) throws ApplicationException, DuplicateRecordException {
 		Connection conn = null;
 		long pk = 0;
+
+		CourseBean existBean = findByName(bean.getName());
+
+		if (existBean != null) {
+			throw new DuplicateRecordException("course name already exist");
+
+		}
 		try {
+			pk = nextPk();
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
 			PreparedStatement pstmt = conn.prepareStatement("insert into " + getTable() + " values(?,?,?,?,?,?,?,?)");
@@ -41,6 +50,12 @@ public class CourseModel extends BaseModel<CourseBean> {
 	@Override
 	public void update(CourseBean bean) throws ApplicationException, DuplicateRecordException {
 		Connection conn = null;
+		CourseBean existBean = findByName(bean.getName());
+
+		if (existBean != null) {
+			throw new DuplicateRecordException("course name already exist");
+
+		}
 		try {
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
@@ -88,13 +103,6 @@ public class CourseModel extends BaseModel<CourseBean> {
 		return sql.toString();
 	}
 
-	public CourseBean FindByName(String name) {
-
-		CourseBean bean = findByUniqueColumn("name", name);
-
-		return bean;
-	}
-
 	@Override
 	public String getTable() {
 
@@ -107,4 +115,10 @@ public class CourseModel extends BaseModel<CourseBean> {
 		return new CourseBean();
 	}
 
+	public CourseBean findByName(String name) {
+
+		CourseBean bean = findByUniqueColumn("name", name);
+
+		return bean;
+	}
 }

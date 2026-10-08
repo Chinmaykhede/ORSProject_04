@@ -14,10 +14,15 @@ public class StudentModel extends BaseModel<StudentBean> {
 	@Override
 	public long add(StudentBean bean) throws ApplicationException, DuplicateRecordException {
 		Connection conn = null;
-		CollegeModel cmodel = new CollegeModel();
-		CollegeBean cbean = cmodel.findBypk(bean.getCollegeId());
 		long pk = 0;
+
+		StudentBean existBean = findByEmail(bean.getEmail());
+		if (existBean != null) {
+			throw new DuplicateRecordException("email id already exist");
+
+		}
 		try {
+			pk = nextPk();
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
 			PreparedStatement pstmt = conn
@@ -50,8 +55,13 @@ public class StudentModel extends BaseModel<StudentBean> {
 	@Override
 	public void update(StudentBean bean) throws ApplicationException, DuplicateRecordException {
 		Connection conn = null;
-		CollegeModel cmodel = new CollegeModel();
-		CollegeBean cbean = cmodel.findBypk(bean.getCollegeId());
+
+		StudentBean existBean = findByEmail(bean.getEmail());
+		if (existBean != null && existBean.getId() != bean.getId()) {
+			throw new DuplicateRecordException("email id already exist");
+
+		}
+
 		try {
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
@@ -113,14 +123,6 @@ public class StudentModel extends BaseModel<StudentBean> {
 		return sql.toString();
 	}
 
-	public StudentBean FindByEmail(String email) {
-
-		StudentBean bean = findByUniqueColumn("email", email);
-
-		return bean;
-
-	}
-
 	@Override
 	public String getTable() {
 
@@ -131,6 +133,14 @@ public class StudentModel extends BaseModel<StudentBean> {
 	public StudentBean getBean() {
 
 		return new StudentBean();
+	}
+
+	public StudentBean findByEmail(String email) {
+
+		StudentBean bean = findByUniqueColumn("email", email);
+
+		return bean;
+
 	}
 
 }

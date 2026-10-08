@@ -16,7 +16,7 @@ public class TestCourseModel {
 //		testAdd();
 //		testUpdate();
 //		 testDelete();
-//		 testFindByPK();
+//		 testfindByPK();
 //		testSearch();
 	}
 
@@ -50,8 +50,8 @@ public class TestCourseModel {
 		model.delete(8);
 	}
 
-	private static void testFindByPK() {
-		CourseBean bean = model.findBypk(7);
+	private static void testfindByPK() {
+		CourseBean bean = model.findByPk(7);
 		System.out.println(bean.getId());
 		System.out.println(bean.getName());
 		System.out.println(bean.getDescription());

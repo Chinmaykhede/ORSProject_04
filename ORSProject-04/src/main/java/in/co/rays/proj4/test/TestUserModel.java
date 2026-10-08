@@ -15,12 +15,12 @@ public class TestUserModel {
 		// testadd();
 		// testupdate();
 		// testdelete();
-	   	// testfindBypk();
+	   	// testfindByPk();
 
 	}
 
-	private static void testfindBypk() {
-		UserBean bean = model.findBypk(1);
+	private static void testfindByPk() {
+		UserBean bean = model.findByPk(1);
 
 		System.out.println(bean.getId());
 		System.out.println(bean.getFirstName());
@@ -61,7 +61,7 @@ public class TestUserModel {
 		bean.setRoleId(2l);
 		bean.setUnsuccessfulLogin(2);
 		bean.setGender("Female");
-		bean.setLastLogin(sdf.parse("2026-09-24"));
+		//bean.setLastLogin(sdf.parse("2026-09-24"));
 		bean.setUserLock("N");
 		bean.setRegisteredIp("192.168.1.15");
 		bean.setLastLoginIp("198.168.1.15");
@@ -84,7 +84,7 @@ public class TestUserModel {
 		bean.setRoleId(2l);
 		bean.setUnsuccessfulLogin(2);
 		bean.setGender("Female");
-		bean.setLastLogin(sdf.parse("2026-09-24"));
+		//bean.setLastLogin(sdf.parse("2026-09-24"));
 		bean.setUserLock("N");
 		bean.setRegisteredIp("192.168.1.15");
 		bean.setLastLoginIp("198.168.1.15");

@@ -4,9 +4,11 @@ import java.io.IOException;
 
 import in.co.rays.proj4.bean.BaseBean;
 import in.co.rays.proj4.bean.UserBean;
+import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.model.BaseModel;
 import in.co.rays.proj4.util.DataUtility;
 import in.co.rays.proj4.util.DataValidator;
+import in.co.rays.proj4.util.ServletUtility;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -77,18 +79,36 @@ public abstract class BaseCtl<B extends BaseBean, M extends BaseModel> extends H
 	}
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
+		ServletUtility.forward(getView(), request, response);
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		B bean = populateBean(request);
+		M model = getModel();
+		try {
+			model.add(bean);
+			ServletUtility.setSuccessMessage("record saved successfully", request);
+		} catch (DuplicateRecordException e) {
+			ServletUtility.setErrorMessage("record already exist", request);
+		}
+		ServletUtility.forward(getView(), request, response);
 	}
 
 	@Override
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void service(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		System.out.println("Service Method");
 
+		if (request.getMethod().equals("POST") && validate(request) == false) {
+			ServletUtility.forward(getView(), request, response);
+			return;
+		}
+		super.service(request, response);
 	}
 
 	public abstract M getModel();

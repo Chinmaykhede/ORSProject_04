@@ -15,7 +15,7 @@ public class TestRoleModel {
 		// testadd();
 		// testupdate();
 		// testdelete();
-		// testfindBypk();
+		// testfindByPk();
 		// testsearch();
 	}
 
@@ -40,8 +40,8 @@ public class TestRoleModel {
 		}	
 	}
 
-	private static void testfindBypk() {
-		RoleBean bean = model.findBypk(1);
+	private static void testfindByPk() {
+		RoleBean bean = model.findByPk(1);
 		System.out.println(bean.getName());
 		System.out.println(bean.getDescription());
 		System.out.println(bean.getCreatedBy());

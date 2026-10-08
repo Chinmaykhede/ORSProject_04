@@ -14,9 +14,16 @@ public class FacultyModel extends BaseModel<FacultyBean> {
 	@Override
 	public long add(FacultyBean bean) throws ApplicationException, DuplicateRecordException {
 		Connection conn = null;
-		CollegeModel cmodel = new CollegeModel();
-		CollegeBean cbean = cmodel.findBypk(bean.getCollegeId());
 		long pk = 0;
+
+		FacultyBean existBean = findByEmail(bean.getEmail());
+
+		if (existBean != null) {
+			throw new DuplicateRecordException("email id already exist");
+
+		}
+		CollegeModel cmodel = new CollegeModel();
+		CollegeBean cbean = cmodel.findByPk(bean.getCollegeId());
 		try {
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
@@ -52,6 +59,16 @@ public class FacultyModel extends BaseModel<FacultyBean> {
 	@Override
 	public void update(FacultyBean bean) throws ApplicationException, DuplicateRecordException {
 		Connection conn = null;
+
+		FacultyBean existBean = findByEmail(bean.getEmail());
+
+		if (existBean != null && existBean.getId() != bean.getId()) {
+			throw new DuplicateRecordException("email id already exist");
+
+		}
+		CollegeModel cmodel = new CollegeModel();
+		CollegeBean cbean = cmodel.findByPk(bean.getCollegeId());
+
 		try {
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
@@ -120,13 +137,6 @@ public class FacultyModel extends BaseModel<FacultyBean> {
 		return sql.toString();
 	}
 
-	public FacultyBean FindByEmail(String email) {
-
-		FacultyBean bean = findByUniqueColumn("email", email);
-
-		return bean;
-	}
-
 	@Override
 	public String getTable() {
 
@@ -137,6 +147,13 @@ public class FacultyModel extends BaseModel<FacultyBean> {
 	public FacultyBean getBean() {
 
 		return new FacultyBean();
+	}
+
+	public FacultyBean findByEmail(String email) {
+
+		FacultyBean bean = findByUniqueColumn("email", email);
+
+		return bean;
 	}
 
 }

@@ -65,7 +65,7 @@ public abstract class BaseModel<T extends BaseBean> {
 
 	}
 
-	public T findBypk(long id) {
+	public T findByPk(long id) {
 		Connection conn = null;
 		T bean = null;
 		try {

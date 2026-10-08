@@ -15,13 +15,14 @@ public class TestCollegeModel {
 	public static void main(String[] args) {
 		// testadd();
 		// testupdate();
-		 //testdelete();
-		//testfindBypk();
-		//testSearch();
+		// testdelete();
+		// testfindBypk();
+		// testSearch();
 	}
 
 	private static void testfindBypk() {
-		CollegeBean bean = model.findBypk(1);
+		CollegeBean bean = model.findByPk(1);
+
 		System.out.println(bean.getName());
 		System.out.println(bean.getAddress());
 		System.out.println(bean.getState());
@@ -68,16 +69,17 @@ public class TestCollegeModel {
 		model.add(bean);
 
 	}
+
 	private static void testSearch() {
 		CollegeBean bean = new CollegeBean();
 		bean.setName("IPS");
 
 		List<CollegeBean> list = model.search(bean, 1, 5);
-		
+
 		Iterator<CollegeBean> it = list.iterator();
-		
-		while(it.hasNext()) {
-			bean = (CollegeBean)it.next();
+
+		while (it.hasNext()) {
+			bean = (CollegeBean) it.next();
 			System.out.println(bean.getId());
 			System.out.println(bean.getName());
 			System.out.println(bean.getAddress());
@@ -89,7 +91,7 @@ public class TestCollegeModel {
 			System.out.println(bean.getModifiedDatetime());
 			System.out.println("----------------------------------------");
 		}
-		 
+
 	}
 
 }

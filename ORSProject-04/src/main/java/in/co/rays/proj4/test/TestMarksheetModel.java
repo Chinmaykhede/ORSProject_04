@@ -17,8 +17,8 @@ public class TestMarksheetModel {
 		// testAdd();
 		// testUpdate();
 		// testDelete();
-		// testFindByPk();
-		//testSearch();
+		// testfindByPk();
+		// testSearch();
 	}
 
 	private static void testAdd() {
@@ -58,8 +58,8 @@ public class TestMarksheetModel {
 		model.delete(1);
 	}
 
-	private static void testFindByPk() {
-		MarksheetBean bean = model.findBypk(2);
+	private static void testfindByPk() {
+		MarksheetBean bean = model.findByPk(2);
 		System.out.println(bean.getId());
 		System.out.println(bean.getRollNo());
 		System.out.println(bean.getName());

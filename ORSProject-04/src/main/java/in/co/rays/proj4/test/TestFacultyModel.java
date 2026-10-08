@@ -18,7 +18,7 @@ public class TestFacultyModel {
 //			testAdd();
 //			testUpdate();
 //			testDelete();
-//		testFindByPK();
+//		testfindByPK();
 //			testSearch();
 	}
 
@@ -69,8 +69,8 @@ public class TestFacultyModel {
 
 	}
 
-	private static void testFindByPK() {
-		FacultyBean bean = model.findBypk(2);
+	private static void testfindByPK() {
+		FacultyBean bean = model.findByPk(2);
 		System.out.println(bean.getId());
 		System.out.println(bean.getFirstName());
 		System.out.println(bean.getLastName());

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 import in.co.rays.proj4.bean.BaseBean;
+import in.co.rays.proj4.bean.CollegeBean;
 import in.co.rays.proj4.bean.UserBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
@@ -12,9 +13,15 @@ import in.co.rays.proj4.util.JDBCDataSource;
 public class UserModel extends BaseModel<UserBean> {
 
 	@Override
-	public long add(UserBean bean) throws ApplicationException, DuplicateRecordException {
+	public long add(UserBean bean) {
 		Connection conn = null;
 		long pk = 0;
+
+		UserBean existBean = findByLogin(bean.getLogin());
+		if (existBean != null) {
+			throw new DuplicateRecordException("Login already exist");
+
+		}
 		try {
 			pk = nextPk();
 			conn = JDBCDataSource.getConnection();
@@ -31,7 +38,8 @@ public class UserModel extends BaseModel<UserBean> {
 			pstmt.setLong(8, bean.getRoleId());
 			pstmt.setInt(9, bean.getUnsuccessfulLogin());
 			pstmt.setString(10, bean.getGender());
-			pstmt.setDate(11, new java.sql.Date(bean.getLastLogin().getTime()));
+			// pstmt.setDate(11, new java.sql.Date(bean.getLastLogin().getTime()));
+			pstmt.setTimestamp(11, bean.getLastLogin());
 			pstmt.setString(12, bean.getUserLock());
 			pstmt.setString(13, bean.getRegisteredIp());
 			pstmt.setString(14, bean.getLastLoginIp());
@@ -54,6 +62,13 @@ public class UserModel extends BaseModel<UserBean> {
 	@Override
 	public void update(UserBean bean) throws ApplicationException, DuplicateRecordException {
 		Connection conn = null;
+
+		UserBean existBean = findByLogin(bean.getLogin());
+		if (existBean != null && existBean.getId() != bean.getId()) {
+			throw new DuplicateRecordException("Login already exist");
+
+		}
+
 		try {
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
@@ -68,7 +83,8 @@ public class UserModel extends BaseModel<UserBean> {
 			pstmt.setLong(7, bean.getRoleId());
 			pstmt.setInt(8, bean.getUnsuccessfulLogin());
 			pstmt.setString(9, bean.getGender());
-			pstmt.setDate(10, new java.sql.Date(bean.getLastLogin().getTime()));
+			// pstmt.setDate(10, new java.sql.Date(bean.getLastLogin().getTime()));
+			pstmt.setTimestamp(10, bean.getLastLogin());
 			pstmt.setString(11, bean.getUserLock());
 			pstmt.setString(12, bean.getRegisteredIp());
 			pstmt.setString(13, bean.getLastLoginIp());
@@ -119,7 +135,21 @@ public class UserModel extends BaseModel<UserBean> {
 		return sql.toString();
 	}
 
-	public UserBean FindByLogin(String login) {
+	public UserBean authenticate(String userloginId, String userpassword)  {
+
+		UserBean bean = new UserBean();
+
+		bean = findByLogin(userloginId);
+
+		if (bean != null && bean.getPassword().equals(userpassword)) {
+			return bean;
+		}
+
+		return null;
+
+	}
+
+	public UserBean findByLogin(String login) {
 
 		UserBean bean = findByUniqueColumn("login", login);
 

@@ -15,8 +15,8 @@ public class TestSubjectModel {
 //		        testAdd();
 //				testUpdate();
 //				testDelete();
-//		        testFindByPK();
-		testSearch();
+//		        testfindByPK();
+		//testSearch();
 	}
 
 	private static void testAdd() {
@@ -51,8 +51,8 @@ public class TestSubjectModel {
 
 	}
 
-	private static void testFindByPK() {
-		SubjectBean bean = model.findBypk(2);
+	private static void testfindByPK() {
+		SubjectBean bean = model.findByPk(2);
 
 		System.out.println(bean.getId());
 		System.out.println(bean.getName());

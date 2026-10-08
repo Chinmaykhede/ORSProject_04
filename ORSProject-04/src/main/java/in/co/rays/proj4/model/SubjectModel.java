@@ -3,6 +3,7 @@ package in.co.rays.proj4.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
+import in.co.rays.proj4.bean.CollegeBean;
 import in.co.rays.proj4.bean.SubjectBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
@@ -14,7 +15,14 @@ public class SubjectModel extends BaseModel<SubjectBean> {
 	public long add(SubjectBean bean) throws ApplicationException, DuplicateRecordException {
 		Connection conn = null;
 		long pk = 0;
+		SubjectBean existBean = findByName(bean.getName());
+
+		if (existBean != null) {
+			throw new DuplicateRecordException("college name already exist");
+
+		}
 		try {
+			pk = nextPk();
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
 			PreparedStatement pstmt = conn.prepareStatement("insert into " + getTable() + " values(?,?,?,?,?,?,?,?)");
@@ -41,6 +49,14 @@ public class SubjectModel extends BaseModel<SubjectBean> {
 	@Override
 	public void update(SubjectBean bean) throws ApplicationException, DuplicateRecordException {
 		Connection conn = null;
+
+		SubjectBean existBean = findByName(bean.getName());
+
+		if (existBean != null && existBean.getId() != bean.getId()) {
+			throw new DuplicateRecordException("college name already exist");
+
+		}
+
 		try {
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
@@ -88,14 +104,6 @@ public class SubjectModel extends BaseModel<SubjectBean> {
 		return sql.toString();
 	}
 
-	public SubjectBean FindByName(String name) {
-
-		SubjectBean bean = findByUniqueColumn("name", name);
-
-		return bean;
-
-	}
-
 	@Override
 	public String getTable() {
 
@@ -106,6 +114,14 @@ public class SubjectModel extends BaseModel<SubjectBean> {
 	public SubjectBean getBean() {
 
 		return new SubjectBean();
+	}
+
+	public SubjectBean findByName(String name) {
+
+		SubjectBean bean = findByUniqueColumn("name", name);
+
+		return bean;
+
 	}
 
 }
