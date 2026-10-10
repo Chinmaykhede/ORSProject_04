@@ -49,6 +49,7 @@ public class LoginCtl extends BaseCtl<UserBean, UserModel> {
 		String op = request.getParameter("operation");
 		if (op != null) {
 			HttpSession session = request.getSession();
+			ServletUtility.setSuccessMessage("user logout successfully", request);
 			session.invalidate();
 		}
 		ServletUtility.forward(getView(), request, response);
