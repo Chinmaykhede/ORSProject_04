@@ -1,3 +1,4 @@
+<%@page import="in.co.rays.proj4.controller.BaseCtl"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
 <%@page import="in.co.rays.proj4.util.ServletUtility"%>
@@ -12,6 +13,7 @@
 <body>
 	<%
 	List<UserBean> list = ServletUtility.getList(request);
+	List<UserBean> nextList = (List<UserBean>) request.getAttribute("nextList");
 	int pageNo = ServletUtility.getPageNo(request);
 	int pageSize = ServletUtility.getPageSize(request);
 	int index = (pageNo - 1) * pageSize + 1;
@@ -47,7 +49,25 @@
 				<%
 				}
 				%>
-			</table>
+				<%-- <%@ include file="ListFooter.jsp"%> --%>
+				<table>
+					<table width="100%">
+						<input type="hidden" name="pageNo" value="<%=pageNo%>">
+						<tr>
+							<td><input type="submit" name="operation"
+								<%=pageNo == 1 ? "disabled" : ""%>
+								value="<%=BaseCtl.OP_PREVIOUS%>"></td>
+
+							<td align="center"><input type="submit" name="operation"
+								value="<%=BaseCtl.OP_DELETE%>"></td>
+
+							<td align="right"><input type="submit" name="operation"
+								<%=nextList.size() == 0 ? "disabled" : ""%>
+								value="<%=BaseCtl.OP_NEXT%>"></td>
+
+						</tr>
+					</table>
+				</table>
 		</form>
 	</div>
 	<%@ include file="Footer.jsp"%>

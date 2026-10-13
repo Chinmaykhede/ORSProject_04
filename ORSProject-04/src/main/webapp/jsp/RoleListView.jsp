@@ -70,11 +70,14 @@
 					<td><input type="submit" name="operation"
 						<%=pageNo == 1 ? "disabled" : ""%>
 						value="<%=BaseCtl.OP_PREVIOUS%>"></td>
+
 					<td align="center"><input type="submit" name="operation"
 						value="<%=BaseCtl.OP_DELETE%>"></td>
+
 					<td align="right"><input type="submit" name="operation"
 						<%=nextList.size() == 0 ? "disabled" : ""%>
 						value="<%=BaseCtl.OP_NEXT%>"></td>
+
 				</tr>
 			</table>
 

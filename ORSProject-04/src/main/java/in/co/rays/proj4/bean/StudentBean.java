@@ -1,6 +1,6 @@
 package in.co.rays.proj4.bean;
 
-import java.sql.Date;
+import java.util.Date;
 import java.sql.ResultSet;
 
 public class StudentBean extends BaseBean {
@@ -48,8 +48,8 @@ public class StudentBean extends BaseBean {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(Date dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
+	public void setDateOfBirth(Date date) {
+		this.dateOfBirth = date;
 	}
 
 	public String getMobileNo() {

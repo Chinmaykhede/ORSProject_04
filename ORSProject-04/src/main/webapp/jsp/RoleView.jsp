@@ -24,7 +24,7 @@
 			<table>
 
 				<tr>
-					<th>Name</th>
+					<th>Name<font color="red">*</font></th>
 
 					<td><input type="text" name="name"
 						placeholder="enter role name" value=""></td>
@@ -32,9 +32,9 @@
 				</tr>
 
 				<tr>
-					<th>Description</th>
+					<th>Description<font color="red">*</font></th>
 					<td><input type="text" name="description"
-						placeholder="enter description" value=""></td>
+						placeholder="enter your description" value=""></td>
 					<td style="color: red"><%=ServletUtility.getErrorMessage("description", request)%></td>
 				</tr>
 

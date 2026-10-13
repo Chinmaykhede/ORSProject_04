@@ -1,6 +1,6 @@
 package in.co.rays.proj4.bean;
 
-import java.sql.Date;
+import java.util.Date;
 import java.sql.ResultSet;
 
 public class FacultyBean extends BaseBean {

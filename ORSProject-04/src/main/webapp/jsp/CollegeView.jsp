@@ -21,31 +21,31 @@
 		<form action="<%=ORSView.COLLEGE_CTL%>" method="post">
 			<table>
 				<tr>
-					<th>Name</th>
+					<th>Name<font color="red">*</font></th>
 					<td><input type="text" name="name"
 						placeholder="enter college name" value=""></td>
 					<td style="color: red"><%=ServletUtility.getErrorMessage("name", request)%></td>
 				</tr>
 				<tr>
-					<th>Address</th>
+					<th>Address<font color="red">*</font></th>
 					<td><input type="text" name="name"
 						placeholder="enter your address" value=""></td>
 					<td style="color: red"><%=ServletUtility.getErrorMessage("address", request)%></td>
 				</tr>
 
 				<tr>
-					<th>State</th>
+					<th>State<font color="red">*</font></th>
 					<td><input type="text" name="name"
 						placeholder="enter your state" value=""></td>
 					<td style="color: red"><%=ServletUtility.getErrorMessage("state", request)%></td>
 				</tr>
 				<tr>
-					<th>City</th>
+					<th>City<font color="red">*</font></th>
 					<td><input type="text" name="name"
 						placeholder="enter your city" value=""></td>
 					<td style="color: red"><%=ServletUtility.getErrorMessage("city", request)%></td>
 				</tr>
-				<th>PhoneNo</th>
+				<th>PhoneNo<font color="red">*</font></th>
 				<td><input type="text" name="name"
 					placeholder="enter your phoneNo" value=""></td>
 				<td style="color: red"><%=ServletUtility.getErrorMessage("phoneNo", request)%></td>

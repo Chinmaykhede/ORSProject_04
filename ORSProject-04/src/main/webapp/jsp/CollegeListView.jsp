@@ -55,7 +55,7 @@
 					<td><%=bean.getState()%></td>
 					<td><%=bean.getCity()%></td>
 					<td><%=bean.getPhoneNo()%></td>
-					<td><a href="<%=ORSView.COLLEGE_CTL + "?id=" + bean.getId()%>">Edit%></a></td>
+					<td><a href="<%=ORSView.COLLEGE_CTL + "?id=" + bean.getId()%>">Edit</a></td>
 				</tr>
 				<%
 				}

@@ -1,6 +1,7 @@
 package in.co.rays.proj4.model;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 
 import in.co.rays.proj4.bean.CollegeBean;
@@ -32,7 +33,7 @@ public class StudentModel extends BaseModel<StudentBean> {
 			pstmt.setString(3, bean.getCollegeName());
 			pstmt.setString(4, bean.getFirstName());
 			pstmt.setString(5, bean.getLastName());
-			pstmt.setDate(6, bean.getDateOfBirth());
+			pstmt.setDate(6, new java.sql.Date(bean.getDateOfBirth().getTime()));
 			pstmt.setString(7, bean.getMobileNo());
 			pstmt.setString(8, bean.getEmail());
 			pstmt.setString(9, bean.getCreatedBy());

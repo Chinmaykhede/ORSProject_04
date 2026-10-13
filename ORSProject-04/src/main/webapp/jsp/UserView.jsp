@@ -24,31 +24,31 @@
 		<form action="<%=ORSView.USER_CTL%>" method="post">
 			<table>
 				<tr>
-					<th>First Name</th>
+					<th>First Name<font color="red">*</font></th>
 					<td><input type="text" name="firstName"
 						placeholder="enter your first name" value=""></td>
 					<td style="color: red"><%=ServletUtility.getErrorMessage(request)%></td>
 				</tr>
 				<tr>
-					<th>Last Name</th>
+					<th>Last Name<font color="red">*</font></th>
 					<td><input type="text" name="lastName"
 						placeholder="enter your last name" value=""></td>
 					<td style="color: red"><%=ServletUtility.getErrorMessage(request)%></td>
 				</tr>
 				<tr>
-					<th>Login</th>
+					<th>Login<font color="red">*</font></th>
 					<td><input type="email" name="login"
 						placeholder="enter your email" value=""></td>
 					<td style="color: red"><%=ServletUtility.getErrorMessage(request)%></td>
 				</tr>
 				<tr>
-					<th>Password</th>
+					<th>Password<font color="red">*</font></th>
 					<td><input type="password" name="password"
 						placeholder="enter your password" value=""></td>
 					<td style="color: red"><%=ServletUtility.getErrorMessage(request)%></td>
 				</tr>
 				<tr>
-					<th>Gender</th>
+					<th>Gender<font color="red">*</font></th>
 					<td><select name="gender">
 							<option value="">-- Select Gender --</option>
 							<option value="Male">Male</option>
@@ -56,7 +56,7 @@
 							<option value="Other">Other</option>
 					</select></td>
 				</tr>
-				<th>DOB</th>
+				<th>DOB<font color="red">*</font></th>
 				<td><input type="date" name="dob" value=""></td>
 				<td style="color: red"><%=ServletUtility.getErrorMessage(request)%></td>
 

@@ -20,6 +20,9 @@ public abstract class BaseListCtl<B extends BaseBean, M extends BaseModel> exten
 		int pageSize = 5;
 
 		List<B> list = model.search(bean, pageNo, pageSize);
+		List<B> nextList = model.search(bean, pageNo+1, pageSize);
+		
+		request.setAttribute("nextList", nextList);
 		ServletUtility.setList(list, request);
 		ServletUtility.setPageNo(pageNo, request);
 		ServletUtility.setPageSize(pageSize, request);
@@ -30,7 +33,7 @@ public abstract class BaseListCtl<B extends BaseBean, M extends BaseModel> exten
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+        
 	}
 
 }
