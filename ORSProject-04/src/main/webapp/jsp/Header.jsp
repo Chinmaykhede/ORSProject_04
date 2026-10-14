@@ -31,6 +31,8 @@
 	<a href="<%=ORSView.FACULTY_LIST_CTL%>">Faculty List</a> |
 	<a href="<%=ORSView.STUDENT_CTL%>">Add Student</a> |
 	<a href="<%=ORSView.STUDENT_LIST_CTL%>">Student List</a> |
+	<a href="<%=ORSView.SUBJECT_CTL%>">Add Subject</a> |
+	<a href="<%=ORSView.SUBJECT_LIST_CTL%>">Subject List</a> |
 	<a href="<%=ORSView.LOGIN_CTL + "?operation=logout"%>">Logout</a> |
 
 	<%

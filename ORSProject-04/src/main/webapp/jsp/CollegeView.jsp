@@ -1,3 +1,4 @@
+<%@page import="in.co.rays.proj4.util.DataUtility"%>
 <%@page import="in.co.rays.proj4.controller.CollegeCtl"%>
 <%@page import="in.co.rays.proj4.util.ServletUtility"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -9,13 +10,14 @@
 <title>Insert title here</title>
 </head>
 <body>
+ <jsp:useBean id="bean" class="in.co.rays.proj4.bean.CollegeBean" scope="request"></jsp:useBean>
 	<%
 	String succ = ServletUtility.getSuccessMessage(request);
 	String error = ServletUtility.getErrorMessage(request);
 	%>
 	<%@ include file="Header.jsp"%>
 	<div align="center">
-		<h1>Add College</h1>
+		<h1><%=bean!=null && bean.getId()>0 ? "Update College" : "Add College"%></h1>
 		<h3 style="color: green"><%=succ%></h3>
 		<h3 style="color: red"><%=error%></h3>
 		<form action="<%=ORSView.COLLEGE_CTL%>" method="post">
@@ -23,31 +25,31 @@
 				<tr>
 					<th>Name<font color="red">*</font></th>
 					<td><input type="text" name="name"
-						placeholder="enter college name" value=""></td>
+						placeholder="enter college name" value="<%=DataUtility.getStringData(bean.getName())%>"></td>
 					<td style="color: red"><%=ServletUtility.getErrorMessage("name", request)%></td>
 				</tr>
 				<tr>
 					<th>Address<font color="red">*</font></th>
 					<td><input type="text" name="name"
-						placeholder="enter your address" value=""></td>
+						placeholder="enter your address" value="<%=DataUtility.getStringData(bean.getAddress())%>"></td>
 					<td style="color: red"><%=ServletUtility.getErrorMessage("address", request)%></td>
 				</tr>
 
 				<tr>
 					<th>State<font color="red">*</font></th>
 					<td><input type="text" name="name"
-						placeholder="enter your state" value=""></td>
+						placeholder="enter your state" value="<%=DataUtility.getStringData(bean.getState())%>"></td>
 					<td style="color: red"><%=ServletUtility.getErrorMessage("state", request)%></td>
 				</tr>
 				<tr>
 					<th>City<font color="red">*</font></th>
 					<td><input type="text" name="name"
-						placeholder="enter your city" value=""></td>
+						placeholder="enter your city" value="<%=DataUtility.getStringData(bean.getCity())%>"></td>
 					<td style="color: red"><%=ServletUtility.getErrorMessage("city", request)%></td>
 				</tr>
 				<th>PhoneNo<font color="red">*</font></th>
 				<td><input type="text" name="name"
-					placeholder="enter your phoneNo" value=""></td>
+					placeholder="enter your phoneNo" value="<%=DataUtility.getStringData(bean.getPhoneNo())%>"></td>
 				<td style="color: red"><%=ServletUtility.getErrorMessage("phoneNo", request)%></td>
 				</tr>
 				<tr>
