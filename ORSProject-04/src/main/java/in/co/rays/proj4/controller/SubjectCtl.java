@@ -1,6 +1,5 @@
 package in.co.rays.proj4.controller;
 
-import in.co.rays.proj4.bean.CollegeBean;
 import in.co.rays.proj4.bean.SubjectBean;
 import in.co.rays.proj4.model.SubjectModel;
 import in.co.rays.proj4.util.DataUtility;

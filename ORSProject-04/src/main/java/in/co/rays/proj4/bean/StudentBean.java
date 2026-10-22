@@ -1,7 +1,7 @@
 package in.co.rays.proj4.bean;
 
-import java.util.Date;
 import java.sql.ResultSet;
+import java.util.Date;
 
 public class StudentBean extends BaseBean {
 	private long collegeId;
